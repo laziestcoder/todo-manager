@@ -1,4 +1,4 @@
-FROM php:7.3-apache
+FROM php:7.4-apache
 
 COPY . /src/project
 
@@ -35,7 +35,7 @@ RUN apt-get update \
 # RUN (crontab -l ; echo "* * * * * bash /src/project/.docker/cron.sh") | crontab
 #
 
-RUN docker-php-ext-install mbstring pdo pdo_mysql mysqli zip bcmath
+# RUN docker-php-ext-install mbstring pdo pdo_mysql mysqli zip bcmath
 
 RUN pecl install mailparse && docker-php-ext-enable mailparse
 RUN pecl install redis && docker-php-ext-enable redis
@@ -44,8 +44,7 @@ RUN chown -R www-data:www-data /src/project/
 
 #RUN service apache2 restart
 
-#RUN chmod -R 777 /src/project/bootstrap/ \
-#    /src/project/storage/
+RUN chmod -R 777 /src/project/bootstrap/ /src/project/storage/
 
 #RUN service cron restart
 #RUN service cron reload
